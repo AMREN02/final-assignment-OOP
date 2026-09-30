@@ -1,3 +1,4 @@
+// اقسم بالله أن هذا الكود من عمل الفريق
 // عمرو احمد طه شيحه         20250449   filter  (2-6)
 // جابر اكرامي جابر الزغبي   20250140  filter (1-5)
 // كريم محمد السيد سليمان    20250490  filter (3-7)
@@ -82,63 +83,70 @@ Image Invert(Image &input)
 // F4 sime done  (مع زخارف ولا عادي)
 void AddFrame(Image &work_on)
 {
-    cout << "want a decorations?   (Y/N)";
+    std::cout << "want a decorations?   (Y/N)";
     char c;
-    cin >> c;
+    std::cin >> c;
+    int size = 13;
+    int w = work_on.width + size * 2;
+    int h = work_on.height + size * 2;
+    Image frame(w, h);
 
-    for (int i = 0; i < work_on.width; ++i)
-    {
-        for (int j = 0; j < work_on.height; ++j)
-        {
-            if (i <= 20 || j <= 25 || work_on.width - i <= 20 || work_on.height - j <= 25)
-            {
-                work_on(i, j, 0) = 240;
-                work_on(i, j, 1) = 160;
-                work_on(i, j, 2) = 20;
-            }
-        }
-    }
     if (c == 'Y' || c == 'y')
     {
         // decorations in corners
-        for (int i = 0; i < 50; i++)
+
+        for (int i = 0; i < w; i++)
         {
-            for (int j = 0; j < 50; j++)
+            for (int j = 0; j < h; j++)
             {
-                if (i == j || i + j == 49)
+                if (c == 'N' || c == 'n')
                 {
-                    if (i < work_on.width && j < work_on.height)
+                    if (i < size || i >= w - size || j < size || j >= h - size)
                     {
-                        work_on(i, j, 0) = 0;
-                        work_on(i, j, 1) = 0;
-                        work_on(i, j, 2) = 0;
+                        frame(i, j, 0) = 255;
+                        frame(i, j, 1) = 215;
+                        frame(i, j, 2) = 0;
                     }
+                }
 
-                    if (work_on.width - 1 - i >= 0 && j < work_on.height)
-                    {
-                        work_on(work_on.width - 1 - i, j, 0) = 0;
-                        work_on(work_on.width - 1 - i, j, 1) = 0;
-                        work_on(work_on.width - 1 - i, j, 2) = 0;
-                    }
+                else if (c == 'Y' || c == 'y')
+                {
 
-                    if (i < work_on.width && work_on.height - 1 - j >= 0)
+                    if (i < size || i >= w - size || j < size || j >= h - size)
                     {
-                        work_on(i, work_on.height - 1 - j, 0) = 0;
-                        work_on(i, work_on.height - 1 - j, 1) = 0;
-                        work_on(i, work_on.height - 1 - j, 2) = 0;
-                    }
+                        if ((i + j) % 5 == 0 || (i + j) % 5 == 1 || (i + j) % 5 == 4)
+                        {
+                            frame(i, j, 0) = 0;
+                            frame(i, j, 1) = 0;
+                            frame(i, j, 2) = 0;
+                        }
+                        else
+                        {
 
-                    if (work_on.width - 1 - i >= 0 && work_on.height - 1 - j >= 0)
-                    {
-                        work_on(work_on.width - 1 - i, work_on.height - 1 - j, 0) = 0;
-                        work_on(work_on.width - 1 - i, work_on.height - 1 - j, 1) = 0;
-                        work_on(work_on.width - 1 - i, work_on.height - 1 - j, 2) = 0;
+                            frame(i, j, 0) = 255;
+                            frame(i, j, 1) = 215;
+                            frame(i, j, 2) = 0;
+                        }
                     }
                 }
             }
         }
+        for (int i = 0; i < work_on.width; i++)
+        {
+
+            for (int j = 0; j < work_on.height; j++)
+            {
+
+                for (int k = 0; k < 3; k++)
+                {
+                    frame(i + size, j + size, k) = work_on(i, j, k);
+                }
+            }
+        }
     }
+    work_on = frame;
 }
+
 // F5 done
 void Flip(Image &work_on)
 {
@@ -235,13 +243,7 @@ Image DarkenAndLighten(Image &input, bool darken)
 
     return output;
 }
-// F8 noooooooo
-// void Resize(Image &work_on, float W, float H)
-// {
-//     float w = work_on.width / W;
-//     float h = work_on.height / H;
-// }
-
+// F8 done
 void Resize(Image &work_on, int W, int H)
 {
     if (W <= 0 || H <= 0)
