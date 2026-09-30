@@ -376,7 +376,7 @@ int main()
         }
         cout << "contenue ?   type(Y/N)\n";
         cin >> dec;
-        if (dec[0] == 'n' || dec[0] == 'N')
+        if (!(dec[0] == 'y' || dec[0] == 'Y'))
             flag = false;
 
         OnlyFirstTime = true;
