@@ -91,10 +91,7 @@ void AddFrame(Image &work_on)
     int h = work_on.height + size * 2;
     Image frame(w, h);
 
-    if (c == 'Y' || c == 'y')
-    {
-        // decorations in corners
-
+        
         for (int i = 0; i < w; i++)
         {
             for (int j = 0; j < h; j++)
@@ -143,7 +140,6 @@ void AddFrame(Image &work_on)
                 }
             }
         }
-    }
     work_on = frame;
 }
 
