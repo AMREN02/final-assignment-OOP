@@ -91,55 +91,55 @@ void AddFrame(Image &work_on)
     int h = work_on.height + size * 2;
     Image frame(w, h);
 
-        
-        for (int i = 0; i < w; i++)
+    // decorations in corner
+    for (int i = 0; i < w; i++)
+    {
+        for (int j = 0; j < h; j++)
         {
-            for (int j = 0; j < h; j++)
+            if (c == 'N' || c == 'n')
             {
-                if (c == 'N' || c == 'n')
+                if (i < size || i >= w - size || j < size || j >= h - size)
                 {
-                    if (i < size || i >= w - size || j < size || j >= h - size)
+                    frame(i, j, 0) = 255;
+                    frame(i, j, 1) = 215;
+                    frame(i, j, 2) = 0;
+                }
+            }
+
+            else if (c == 'Y' || c == 'y')
+            {
+
+                if (i < size || i >= w - size || j < size || j >= h - size)
+                {
+                    if ((i + j) % 5 == 0 || (i + j) % 5 == 1 || (i + j) % 5 == 4)
                     {
+                        frame(i, j, 0) = 0;
+                        frame(i, j, 1) = 0;
+                        frame(i, j, 2) = 0;
+                    }
+                    else
+                    {
+
                         frame(i, j, 0) = 255;
                         frame(i, j, 1) = 215;
                         frame(i, j, 2) = 0;
                     }
                 }
-
-                else if (c == 'Y' || c == 'y')
-                {
-
-                    if (i < size || i >= w - size || j < size || j >= h - size)
-                    {
-                        if ((i + j) % 5 == 0 || (i + j) % 5 == 1 || (i + j) % 5 == 4)
-                        {
-                            frame(i, j, 0) = 0;
-                            frame(i, j, 1) = 0;
-                            frame(i, j, 2) = 0;
-                        }
-                        else
-                        {
-
-                            frame(i, j, 0) = 255;
-                            frame(i, j, 1) = 215;
-                            frame(i, j, 2) = 0;
-                        }
-                    }
-                }
             }
         }
-        for (int i = 0; i < work_on.width; i++)
+    }
+    for (int i = 0; i < work_on.width; i++)
+    {
+
+        for (int j = 0; j < work_on.height; j++)
         {
 
-            for (int j = 0; j < work_on.height; j++)
+            for (int k = 0; k < 3; k++)
             {
-
-                for (int k = 0; k < 3; k++)
-                {
-                    frame(i + size, j + size, k) = work_on(i, j, k);
-                }
+                frame(i + size, j + size, k) = work_on(i, j, k);
             }
         }
+    }
     work_on = frame;
 }
 
