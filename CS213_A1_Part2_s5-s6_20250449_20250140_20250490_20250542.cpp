@@ -495,7 +495,7 @@ int main()
         getline(cin, fname);
     }
 
-    Image img(fname);
+    Image backup(fname);
     Image work_on(fname);
     do
     {
@@ -512,7 +512,7 @@ int main()
             }
             if (crt == "old")
             {
-                work_on = img;
+                work_on = backup;
             }
         }
 
@@ -635,7 +635,8 @@ int main()
             do
             {
                 cout << "enter name & ext for the image: \n";
-                cin >> num;
+                // cin >> num;
+                getline(cin,num);
             } while (!CheckExtension(num));
             Image img(num);
             work_on = Merge(work_on, img);
@@ -687,10 +688,9 @@ int main()
             cout << "same name will cause an overload\n";
             // cin >> newname;
             getline(cin,newname);
+
             if (!CheckExtension(newname))
-            {
                 newname += ".jpg";
-            }
 
             work_on.saveImage(newname);
         }
